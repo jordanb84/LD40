@@ -57,13 +57,6 @@ public class StateMapEditor extends State {
         selectedTileSprite.draw(batch);
         selectedTileSprite.setAlpha(1);
 
-        /**
-         *         int humanAdjustedTotalLayers = (this.totalLayers);
-         int humanAdjustedFocusedLayer = (this.focusedLayerIndex + 1);
-         Gdx.graphics.setTitle("LD40 - Selected: " + this.selectedType.name() + " - Layer: " + humanAdjustedFocusedLayer + "/" + humanAdjustedTotalLayers);
-
-         */
-
         int humanAdjustedTotalLayers = (this.totalLayers);
         int humanAdjustedFocusedLayer = (this.focusedLayerIndex + 1);
 

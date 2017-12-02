@@ -19,10 +19,10 @@ public class TileMapImporter {
         return layers;
     }
 
-    public List<TileLayer> importFromJson(String path) {
+    public List<TileLayer> importFromJson(String json) {
         Json importerJson = new Json();
 
-        ArrayList<TileLayer> layers = importerJson.fromJson(ArrayList.class, path);
+        ArrayList<TileLayer> layers = importerJson.fromJson(ArrayList.class, json);
 
         return layers;
     }
