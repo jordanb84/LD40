@@ -2,7 +2,8 @@ package com.ld.game.tile;
 
 public enum TileType {
 
-    Air("tile/air.png", false), Floor_Wood("tile/floor_wood.png", false), Wall_Stone("tile/wall_stone.png", true);
+    Air("tile/air.png", false), Floor_Wood("tile/floor_wood.png", false), Wall_Stone("tile/wall_stone.png", true),
+    Torch("tile/torch.png", false);
 
     TileType(String spritePath, boolean solid) {
         this.SOLID = solid;

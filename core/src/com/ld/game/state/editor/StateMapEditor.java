@@ -24,7 +24,7 @@ import java.util.List;
 /** Excuse this mess, it's heckin' late and I'm in a rush to get stuff done **/
 public class StateMapEditor extends State {
 
-    private int focusedLayerIndex = 0;
+    private int focusedLayerIndex = 1;
 
     private List<TileLayer> tileLayers = new ArrayList<TileLayer>();
 
@@ -36,9 +36,11 @@ public class StateMapEditor extends State {
 
     private Vector3 mousePosition = new Vector3();
 
+    private int totalLayers = (4);
+
     public StateMapEditor(StateManager stateManager) {
         super(stateManager);
-        this.generateBlankMap(TileType.Floor_Wood, 2);
+        this.generateBlankMap(TileType.Floor_Wood, this.totalLayers);
     }
 
     @Override
@@ -89,6 +91,18 @@ public class StateMapEditor extends State {
             System.out.println("Invalid tile");
         }
 
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
+            if(this.focusedLayerIndex - 1 >= 0) {
+                this.focusedLayerIndex--;
+            }
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
+            if((this.focusedLayerIndex + 1 < this.totalLayers)) {
+                this.focusedLayerIndex++;
+            }
+        }
+
          this.mousePosition.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(this.mousePosition);
 
@@ -111,7 +125,9 @@ public class StateMapEditor extends State {
             }
         }
 
-        Gdx.graphics.setTitle("LD40 - Selected: " + this.selectedType.name());
+        int humanAdjustedTotalLayers = (this.totalLayers);
+        int humanAdjustedFocusedLayer = (this.focusedLayerIndex + 1);
+        Gdx.graphics.setTitle("LD40 - Selected: " + this.selectedType.name() + " - Layer: " + humanAdjustedFocusedLayer + "/" + humanAdjustedTotalLayers);
     }
 
     private void generateBlankMap(TileType floorTile, int totalLayers) {
