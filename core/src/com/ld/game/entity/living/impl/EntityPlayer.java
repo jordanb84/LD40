@@ -29,6 +29,15 @@ public class EntityPlayer extends EntityLiving {
     @Override
     public void update(OrthographicCamera camera) {
         super.update(camera);
+        if(!this.getParentMap().getDialog().inProgress()) {
+            this.pollMovementInput(camera);
+        }
+
+        camera.position.set(this.getPosition().x, this.getPosition().y, 0);
+        camera.update();
+    }
+
+    private void pollMovementInput(OrthographicCamera camera) {
         boolean pressingMovementKey = false;
 
         if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
@@ -58,8 +67,5 @@ public class EntityPlayer extends EntityLiving {
                 pressingMovementKey = true;
             }
         }
-
-        camera.position.set(this.getPosition().x, this.getPosition().y, 0);
-        camera.update();
     }
 }

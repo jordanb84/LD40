@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 
 public enum Text {
-    Medium("font/pixel.ttf", 14), Small("font/pixel.ttf", 10)
+    Medium("font/pixel.ttf", 14), Small("font/pixel.ttf", 10), Tiny("font/pixel.ttf", 8)
     ;
 
     Text(String path, int size) {

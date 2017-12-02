@@ -1,11 +1,16 @@
 package com.ld.game.tile;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.ld.game.entity.Entity;
+import com.ld.game.entity.living.impl.EntityPlayer;
+import com.ld.game.map.Map;
 
 public class Tile {
 
@@ -21,7 +26,11 @@ public class Tile {
         this.sprite.draw(batch);
     }
 
-    public void update(int x, int y) {
+    public void update(int x, int y, OrthographicCamera camera) {
+
+    }
+
+    public void collision(Entity collidingEntity, Vector2 position) {
 
     }
 

@@ -25,7 +25,7 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		this.camera = new OrthographicCamera();
-		this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		this.camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
 
 		this.batch = new SpriteBatch();
 
@@ -52,6 +52,8 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+		Gdx.graphics.setTitle("LD40 - FPS " + Gdx.graphics.getFramesPerSecond());
+
 		this.batch.setProjectionMatrix(this.camera.combined);
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

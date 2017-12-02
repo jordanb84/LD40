@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.ld.game.dialog.Dialog;
 import com.ld.game.entity.Entity;
 import com.ld.game.tile.TileType;
 
@@ -29,8 +30,13 @@ public class Map {
     /** For abstraction, tile layers are each their own actor **/
     private List<TileLayer> tileLayers;
 
+    private Dialog dialog;
+
     public Map(List<TileLayer> tileLayers) {
         this.tileLayers = (tileLayers);
+        this.dialog = new Dialog();
+
+        this.dialog.startWithDialog("Nick", "I've discovered the sacred forest of lava lamps!");
     }
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {
@@ -41,11 +47,16 @@ public class Map {
         for(Entity entity : this.entities) {
             entity.render(batch);
         }
+
+        batch.end();
+        this.dialog.render();
+        batch.begin();
     }
 
     public void update(OrthographicCamera camera) {
+
         for(TileLayer tileLayer : this.tileLayers) {
-            tileLayer.update();
+            tileLayer.update(camera);
         }
 
         this.entities.addAll(this.entitySpawnQueue);
@@ -57,6 +68,8 @@ public class Map {
         for(Entity entity : this.entities) {
             entity.update(camera);
         }
+
+        this.dialog.update();
     }
 
     public void spawnEntity(Entity entity) {
@@ -76,5 +89,36 @@ public class Map {
         }
 
         return false;
+    }
+
+    public Vector2 toTilePosition(Vector2 position) {
+        return this.tileLayers.get(0).toTilePosition(position);
+    }
+
+    public TileType tileAt(Rectangle position) {
+        for(TileLayer tileLayer : this.tileLayers) {
+            return tileLayer.tileAt(position);
+        }
+
+        return null;
+    }
+
+    public void setTile(int layer, int x, int y, TileType type) {
+        this.tileLayers.get(layer).setTile(x, y, type);
+    }
+
+    public TileType solidTileAt(Rectangle position) {
+        for(TileLayer tileLayer : this.tileLayers) {
+            TileType type = tileLayer.tileAt(position);
+            if(type.SOLID) {
+                return type;
+            }
+        }
+
+        return null;
+    }
+
+    public Dialog getDialog() {
+        return this.dialog;
     }
 }

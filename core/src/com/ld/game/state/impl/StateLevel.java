@@ -26,7 +26,7 @@ public class StateLevel extends State {
 
         this.map = new Map(tileLayers);
 
-        this.map.spawnEntity(new EntityPlayer(this.map, new Vector2(140, 100)));
+        this.map.spawnEntity(new EntityPlayer(this.map, new Vector2(120, 150)));
     }
 
     @Override

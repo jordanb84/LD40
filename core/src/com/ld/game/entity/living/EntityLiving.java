@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ld.game.entity.Entity;
 import com.ld.game.map.Map;
+import com.ld.game.tile.TileType;
 
 public abstract class EntityLiving extends Entity {
 
@@ -99,12 +100,18 @@ public abstract class EntityLiving extends Entity {
 
         Rectangle newPosition = new Rectangle(this.getPosition().x + force.x, this.getPosition().y + force.y, this.getWidth(), this.getHeight());
 
+
+        TileType tileAt = (this.getParentMap().tileAt(newPosition));
+
+        System.out.println(tileAt.name());
+
         if(!this.getParentMap().willCollideAt(newPosition, camera)) {
             this.getPosition().add(force);
             this.setDirection(newDirection);
 
             this.getAnimation().update(camera, this.getDirection());
         }else{
+            this.getParentMap().solidTileAt(newPosition).TILE.collision(this, this.getParentMap().toTilePosition(this.getPosition()));
             force.set(0, 0);
         }
         return force;

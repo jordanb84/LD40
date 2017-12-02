@@ -63,7 +63,7 @@ public class StateMapEditor extends State {
         Vector3 placingTextPosition = new Vector3(50, 50, 0);
         camera.unproject(placingTextPosition);
 
-        Text.draw(Text.Medium, batch, "Placing " + this.selectedType.name() + " Layer " + humanAdjustedFocusedLayer + '/' + humanAdjustedTotalLayers, (int) placingTextPosition.x, (int) placingTextPosition.y);
+        Text.draw(Text.Tiny, batch, "Placing " + this.selectedType.name() + " Layer " + humanAdjustedFocusedLayer + '/' + humanAdjustedTotalLayers, (int) placingTextPosition.x, (int) placingTextPosition.y);
     }
 
     @Override
