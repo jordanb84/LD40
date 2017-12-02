@@ -2,6 +2,8 @@ package com.ld.game.map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.ld.game.entity.Entity;
 import com.ld.game.tile.TileType;
 
@@ -65,4 +67,14 @@ public class Map {
         this.entityDespawnQueue.add(entity);
     }
 
+    public boolean willCollideAt(Rectangle newPosition, OrthographicCamera camera) {
+        for(TileLayer tileLayer : this.tileLayers) {
+            if(tileLayer.tileAt(newPosition).SOLID) {
+                System.out.println(tileLayer.tileAt(newPosition).name());
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

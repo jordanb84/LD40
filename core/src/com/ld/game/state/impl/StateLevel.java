@@ -3,6 +3,8 @@ package com.ld.game.state.impl;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.ld.game.entity.living.impl.EntityPlayer;
 import com.ld.game.map.Map;
 import com.ld.game.map.TileLayer;
 import com.ld.game.map.file.TileMapImporter;
@@ -23,6 +25,8 @@ public class StateLevel extends State {
         List<TileLayer> tileLayers = mapImporter.importFromJson(Gdx.files.internal(mapPath).readString());
 
         this.map = new Map(tileLayers);
+
+        this.map.spawnEntity(new EntityPlayer(this.map, new Vector2(30, 100)));
     }
 
     @Override
