@@ -73,7 +73,7 @@ public class StateMapEditor extends State {
             JFileChooser fileChooser = new JFileChooser();
 
             if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                this.tileLayers = this.mapImporter.importFromJson(fileChooser.getSelectedFile().getAbsolutePath());
+                this.tileLayers = this.mapImporter.importFromJsonFile(fileChooser.getSelectedFile().getAbsolutePath());
             }
         }
 

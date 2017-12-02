@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ld.game.state.StateManager;
 import com.ld.game.state.editor.StateMapEditor;
+import com.ld.game.state.impl.StateLevel;
 import com.ld.game.state.impl.StateTestbed;
 
 public class Game extends ApplicationAdapter {
@@ -17,6 +18,8 @@ public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
 
 	private StateManager stateManager;
+
+	private boolean editing = false;
 
 	@Override
 	public void create () {
@@ -29,11 +32,17 @@ public class Game extends ApplicationAdapter {
 
 		StateTestbed testbedState = new StateTestbed(this.stateManager);
 		StateMapEditor mapEditorState = new StateMapEditor(this.stateManager);
+		StateLevel levelState = new StateLevel(this.stateManager, "maps/pixelmap.dat");
 
 		this.stateManager.registerState("testbed", testbedState);
 		this.stateManager.registerState("editor", mapEditorState);
+		this.stateManager.registerState("level", levelState);
 
-		this.stateManager.setActiveState("editor");
+		if(this.editing) {
+			this.stateManager.setActiveState("editor");
+		}else {
+			this.stateManager.setActiveState("level");
+		}
 	}
 
 	@Override

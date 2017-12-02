@@ -9,12 +9,20 @@ import java.util.List;
 
 public class TileMapImporter {
 
-    public List<TileLayer> importFromJson(String path) {
+    public List<TileLayer> importFromJsonFile(String path) {
         Json importerJson = new Json();
 
         String mapJsonData = (Gdx.files.external(path).readString());
 
         ArrayList<TileLayer> layers = importerJson.fromJson(ArrayList.class, mapJsonData);
+
+        return layers;
+    }
+
+    public List<TileLayer> importFromJson(String path) {
+        Json importerJson = new Json();
+
+        ArrayList<TileLayer> layers = importerJson.fromJson(ArrayList.class, path);
 
         return layers;
     }
