@@ -14,6 +14,7 @@ import com.ld.game.map.file.TileMapExporter;
 import com.ld.game.map.file.TileMapImporter;
 import com.ld.game.state.State;
 import com.ld.game.state.StateManager;
+import com.ld.game.text.Text;
 import com.ld.game.tile.TileType;
 import org.json.JSONException;
 
@@ -55,6 +56,18 @@ public class StateMapEditor extends State {
         selectedTileSprite.setPosition(this.mousePosition.x, this.mousePosition.y);
         selectedTileSprite.draw(batch);
         selectedTileSprite.setAlpha(1);
+
+        /**
+         *         int humanAdjustedTotalLayers = (this.totalLayers);
+         int humanAdjustedFocusedLayer = (this.focusedLayerIndex + 1);
+         Gdx.graphics.setTitle("LD40 - Selected: " + this.selectedType.name() + " - Layer: " + humanAdjustedFocusedLayer + "/" + humanAdjustedTotalLayers);
+
+         */
+
+        int humanAdjustedTotalLayers = (this.totalLayers);
+        int humanAdjustedFocusedLayer = (this.focusedLayerIndex + 1);
+
+        Text.draw(Text.Medium, batch, "Placing " + this.selectedType.name() + " Layer " + humanAdjustedFocusedLayer + '/' + humanAdjustedTotalLayers, 50, Gdx.graphics.getHeight() - 50);
     }
 
     @Override
@@ -124,10 +137,6 @@ public class StateMapEditor extends State {
                 }
             }
         }
-
-        int humanAdjustedTotalLayers = (this.totalLayers);
-        int humanAdjustedFocusedLayer = (this.focusedLayerIndex + 1);
-        Gdx.graphics.setTitle("LD40 - Selected: " + this.selectedType.name() + " - Layer: " + humanAdjustedFocusedLayer + "/" + humanAdjustedTotalLayers);
     }
 
     private void generateBlankMap(TileType floorTile, int totalLayers) {
