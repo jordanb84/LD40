@@ -9,6 +9,11 @@ public enum TileType {
         this.TILE = new Tile(spritePath);
     }
 
+    TileType(Tile tile, boolean solid) {
+        this.SOLID = solid;
+        this.TILE = tile;
+    }
+
     public boolean SOLID;
 
     public Tile TILE;
