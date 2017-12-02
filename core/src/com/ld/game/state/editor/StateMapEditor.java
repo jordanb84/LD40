@@ -24,7 +24,7 @@ import java.util.List;
 /** Excuse this mess, it's heckin' late and I'm in a rush to get stuff done **/
 public class StateMapEditor extends State {
 
-    private int focusedLayerIndex = 1;
+    private int focusedLayerIndex = 0;
 
     private List<TileLayer> tileLayers = new ArrayList<TileLayer>();
 
