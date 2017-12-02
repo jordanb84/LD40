@@ -3,6 +3,7 @@ package com.ld.game.entity.living;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ld.game.entity.Entity;
@@ -16,9 +17,25 @@ public abstract class EntityLiving extends Entity {
 
     private Direction direction = (Direction.UP);
 
-    public EntityLiving(Map parentMap, Sprite sprite, Vector2 position, int health) {
-        super(parentMap, sprite, position);
+    private Animation animation;
+
+    public EntityLiving(Map parentMap, Vector2 position, int health) {
+        super(parentMap, null, position);
         this.setHealth(health);
+
+        this.animation = new Animation();
+        this.setupAnimation(this.animation);
+    }
+
+    /**
+     * Initiate entity animation
+     * @return Default animation frame
+     */
+    public abstract void setupAnimation(Animation animation);
+
+    @Override
+    public void render(SpriteBatch batch) {
+        this.animation.render(batch, this.getPosition());
     }
 
     @Override
@@ -80,14 +97,28 @@ public abstract class EntityLiving extends Entity {
                 break;
         }
 
-        Rectangle newPosition = new Rectangle(this.getPosition().x + force.x, this.getPosition().y + force.y, this.getSprite().getWidth(), this.getSprite().getHeight());
+        Rectangle newPosition = new Rectangle(this.getPosition().x + force.x, this.getPosition().y + force.y, this.getWidth(), this.getHeight());
 
         if(!this.getParentMap().willCollideAt(newPosition, camera)) {
             this.getPosition().add(force);
             this.setDirection(newDirection);
+
+            this.getAnimation().update(camera, this.getDirection());
         }else{
             force.set(0, 0);
         }
         return force;
+    }
+
+    public Animation getAnimation() {
+        return animation;
+    }
+
+    public float getWidth() {
+        return this.getAnimation().getWidth();
+    }
+
+    public float getHeight() {
+        return this.getAnimation().getHeight();
     }
 }

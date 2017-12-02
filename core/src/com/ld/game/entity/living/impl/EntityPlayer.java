@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.ld.game.entity.living.Animation;
 import com.ld.game.entity.living.Direction;
 import com.ld.game.entity.living.EntityLiving;
 import com.ld.game.map.Map;
@@ -13,8 +14,16 @@ import com.ld.game.map.Map;
 public class EntityPlayer extends EntityLiving {
 
     public EntityPlayer(Map parentMap, Vector2 position) {
-        super(parentMap, new Sprite(new Texture(Gdx.files.internal("entity/player_up.png"))), position, 10);
+        super(parentMap, position, 10);
         this.setSpeed(0.3f);
+    }
+
+    @Override
+    public void setupAnimation(Animation animation) {
+        animation.setFramesForDirection(Direction.UP, "entity/player_up.png");
+        animation.setFramesForDirection(Direction.DOWN, "entity/player_down.png");
+        animation.setFramesForDirection(Direction.LEFT, "entity/player_left.png", "entity/player_left1.png");
+        animation.setFramesForDirection(Direction.RIGHT, "entity/player_right.png", "entity/player_right1.png");
     }
 
     @Override
