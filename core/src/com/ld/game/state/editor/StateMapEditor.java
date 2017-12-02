@@ -60,7 +60,10 @@ public class StateMapEditor extends State {
         int humanAdjustedTotalLayers = (this.totalLayers);
         int humanAdjustedFocusedLayer = (this.focusedLayerIndex + 1);
 
-        Text.draw(Text.Medium, batch, "Placing " + this.selectedType.name() + " Layer " + humanAdjustedFocusedLayer + '/' + humanAdjustedTotalLayers, 50, Gdx.graphics.getHeight() - 50);
+        Vector3 placingTextPosition = new Vector3(50, 50, 0);
+        camera.unproject(placingTextPosition);
+
+        Text.draw(Text.Medium, batch, "Placing " + this.selectedType.name() + " Layer " + humanAdjustedFocusedLayer + '/' + humanAdjustedTotalLayers, (int) placingTextPosition.x, (int) placingTextPosition.y);
     }
 
     @Override
@@ -108,6 +111,23 @@ public class StateMapEditor extends State {
                 this.focusedLayerIndex++;
             }
         }
+
+        float cameraMovementSpeed = (4);
+
+        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            camera.position.add(0, cameraMovementSpeed, 0);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+            camera.position.add(0, -cameraMovementSpeed, 0);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+            camera.position.add(-cameraMovementSpeed, 0, 0);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+            camera.position.add(cameraMovementSpeed, 0, 0);
+        }
+
+        camera.update();
 
          this.mousePosition.set(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(this.mousePosition);
