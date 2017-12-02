@@ -18,8 +18,8 @@ public class Map {
     private List<Entity> entityDespawnQueue = new ArrayList<Entity>();
 
     /** Constants for accessibility across map related actors **/
-    public static final int MAP_WIDTH = (10);
-    public static final int MAP_HEIGHT = (10);
+    public static final int MAP_WIDTH = (50);
+    public static final int MAP_HEIGHT = (50);
 
     public static final int TILE_WIDTH = (32);
     public static final int TILE_HEIGHT = (32);
