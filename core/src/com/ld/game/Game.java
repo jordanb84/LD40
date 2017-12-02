@@ -33,7 +33,7 @@ public class Game extends ApplicationAdapter {
 
 		StateTestbed testbedState = new StateTestbed(this.stateManager);
 		StateMapEditor mapEditorState = new StateMapEditor(this.stateManager);
-		StateLevel levelState = new StateLevel(this.stateManager, "maps/pixelmap.dat");
+		StateLevel levelState = new StateLevel(this.stateManager, "maps/forest.dat");
 
 		this.stateManager.registerState("testbed", testbedState);
 		this.stateManager.registerState("editor", mapEditorState);
@@ -41,7 +41,11 @@ public class Game extends ApplicationAdapter {
 
 		if(this.editing) {
 			this.stateManager.setActiveState("editor");
+
+			//camera.setToOrtho(false, Gdx.graphics.getWidth() * 2, Gdx.graphics.getHeight() * 2);
 		}else {
+			camera.setToOrtho(false, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4);
+
 			this.stateManager.setActiveState("level");
 		}
 	}

@@ -29,7 +29,7 @@ public class StateMapEditor extends State {
 
     private List<TileLayer> tileLayers = new ArrayList<TileLayer>();
 
-    private TileType selectedType = (TileType.Wall_Stone);
+    private TileType selectedType = (TileType.Tree);
 
     private TileMapExporter mapExporter = new TileMapExporter();
 
@@ -41,7 +41,7 @@ public class StateMapEditor extends State {
 
     public StateMapEditor(StateManager stateManager) {
         super(stateManager);
-        this.generateBlankMap(TileType.Floor_Wood, this.totalLayers);
+        this.generateBlankMap(TileType.Sand, this.totalLayers);
     }
 
     @Override

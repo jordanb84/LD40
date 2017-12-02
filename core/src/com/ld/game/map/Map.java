@@ -21,8 +21,8 @@ public class Map {
     public static final int MAP_WIDTH = (50);
     public static final int MAP_HEIGHT = (50);
 
-    public static final int TILE_WIDTH = (32);
-    public static final int TILE_HEIGHT = (32);
+    public static final int TILE_WIDTH = (8);
+    public static final int TILE_HEIGHT = (8);
 
     /** For abstraction, tile layers are each their own actor **/
     private List<TileLayer> tileLayers;
