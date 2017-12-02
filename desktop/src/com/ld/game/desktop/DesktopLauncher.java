@@ -7,6 +7,8 @@ import com.ld.game.Game;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.title = ("LD40");
+
 		new LwjglApplication(new Game(), config);
 	}
 }

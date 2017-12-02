@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ld.game.state.StateManager;
+import com.ld.game.state.editor.StateMapEditor;
 import com.ld.game.state.impl.StateTestbed;
 
 public class Game extends ApplicationAdapter {
@@ -27,9 +28,12 @@ public class Game extends ApplicationAdapter {
 		this.stateManager = new StateManager();
 
 		StateTestbed testbedState = new StateTestbed(this.stateManager);
+		StateMapEditor mapEditorState = new StateMapEditor(this.stateManager);
 
 		this.stateManager.registerState("testbed", testbedState);
-		this.stateManager.setActiveState("testbed");
+		this.stateManager.registerState("editor", mapEditorState);
+
+		this.stateManager.setActiveState("editor");
 	}
 
 	@Override
