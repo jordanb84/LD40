@@ -3,15 +3,21 @@ package com.ld.game.state.editor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Json;
 import com.ld.game.map.Map;
 import com.ld.game.map.TileLayer;
+import com.ld.game.map.file.TileMapExporter;
+import com.ld.game.map.file.TileMapImporter;
 import com.ld.game.state.State;
 import com.ld.game.state.StateManager;
 import com.ld.game.tile.TileType;
+import org.json.JSONException;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +30,12 @@ public class StateMapEditor extends State {
 
     private TileType selectedType = (TileType.Wall_Stone);
 
+    private TileMapExporter mapExporter = new TileMapExporter();
+
+    private TileMapImporter mapImporter = new TileMapImporter();
+
+    private Vector3 mousePosition = new Vector3();
+
     public StateMapEditor(StateManager stateManager) {
         super(stateManager);
         this.generateBlankMap(TileType.Floor_Wood, 2);
@@ -34,14 +46,53 @@ public class StateMapEditor extends State {
         for(TileLayer tileLayer : this.tileLayers) {
             tileLayer.render(batch);
         }
+
+        Sprite selectedTileSprite = (this.selectedType.TILE.getSprite());
+
+        selectedTileSprite.setAlpha(0.5f);
+        selectedTileSprite.setPosition(this.mousePosition.x, this.mousePosition.y);
+        selectedTileSprite.draw(batch);
+        selectedTileSprite.setAlpha(1);
     }
 
     @Override
     public void update(OrthographicCamera camera) {
-        Vector3 mousePosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        camera.unproject(mousePosition);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            try {
+                JFileChooser fileChooser = new JFileChooser();
 
-        Rectangle mouseRectangle = new Rectangle(mousePosition.x, mousePosition.y, 0, 0);
+                if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    this.mapExporter.exportToFile(this.tileLayers, fileChooser.getSelectedFile().getAbsolutePath());
+                }
+            }catch(JSONException jsonException) {
+                jsonException.printStackTrace();
+            }
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+            JFileChooser fileChooser = new JFileChooser();
+
+            if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                this.tileLayers = this.mapImporter.importFromJson(fileChooser.getSelectedFile().getAbsolutePath());
+            }
+        }
+
+        try {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+                this.selectedType = (TileType.values()[this.selectedType.ordinal() + 1]);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+                this.selectedType = (TileType.values()[this.selectedType.ordinal() - 1]);
+            }
+        }catch(ArrayIndexOutOfBoundsException noNextTile) {
+            System.out.println("Invalid tile");
+        }
+
+         this.mousePosition.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(this.mousePosition);
+
+        Rectangle mouseRectangle = new Rectangle(this.mousePosition.x, this.mousePosition.y, 0, 0);
 
         TileType[][] focusedLayerTiles = (this.getFocusedLayer().getLayerTiles());
 
@@ -59,6 +110,8 @@ public class StateMapEditor extends State {
                 }
             }
         }
+
+        Gdx.graphics.setTitle("LD40 - Selected: " + this.selectedType.name());
     }
 
     private void generateBlankMap(TileType floorTile, int totalLayers) {
@@ -77,7 +130,10 @@ public class StateMapEditor extends State {
                 }
             }
 
-            this.tileLayers.add(new TileLayer(tileTypes));
+            TileLayer layer = new TileLayer();
+            layer.setLayerTiles(tileTypes);
+
+            this.tileLayers.add(layer);
         }
     }
 

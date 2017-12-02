@@ -11,10 +11,6 @@ public class TileLayer {
 
     private TileType[][] layerTiles;
 
-    public TileLayer(TileType[][] layerTiles ) {
-        this.layerTiles = layerTiles;
-    }
-
     public void render(SpriteBatch batch) {
         for(int tileRow = 0; tileRow < this.layerTiles.length; tileRow++) {
             for(int tile = 0; tile < this.layerTiles[tileRow].length; tile++) {
@@ -40,5 +36,9 @@ public class TileLayer {
 
     public TileType[][] getLayerTiles() {
         return this.layerTiles;
+    }
+
+    public void setLayerTiles(TileType[][] layerTiles) {
+        this.layerTiles = (layerTiles);
     }
 }

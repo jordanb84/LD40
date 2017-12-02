@@ -25,4 +25,8 @@ public class Tile {
 
     }
 
+    public Sprite getSprite() {
+        return this.sprite;
+    }
+
 }
