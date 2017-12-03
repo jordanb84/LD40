@@ -26,18 +26,20 @@ public class TileLayer {
 
     }
 
-    public void update(OrthographicCamera camera) {
+    public void update(Map map, OrthographicCamera camera) {
         for(int tileRow = 0; tileRow < this.layerTiles.length; tileRow++) {
             for(int tile = 0; tile < this.layerTiles[tileRow].length; tile++) {
                 int x = (tile * Map.TILE_WIDTH);
                 int y = (tileRow * Map.TILE_HEIGHT);
 
                 this.layerTiles[tile][tileRow].TILE.update(x, y, camera);
+
+                if(map.getPlayer().getRectangle().overlaps(this.layerTiles[tile][tileRow].TILE.getRectangle()));
             }
         }
     }
 
-    public TileType tileAt(Rectangle newPosition) {
+    public TileType tileAt(Rectangle newPosition, boolean collide) {
         for(int tileRow = 0; tileRow < this.layerTiles.length; tileRow++) {
             for(int tile = 0; tile < this.layerTiles[tileRow].length; tile++) {
                 int x = (tile * Map.TILE_WIDTH);
@@ -49,8 +51,14 @@ public class TileLayer {
                     return type;
                 }
 
+                if(collide) {
+                    type.TILE.collision(type.TILE.getMap().getPlayer(), new Vector2(x, y));
+                }
+
                 if(newPosition.overlaps(new Rectangle(x, y, Map.TILE_WIDTH, Map.TILE_HEIGHT))) {
-                    System.out.println("On tile " + type.name() + " at " + x + "/" + y);
+                    if(!(type == TileType.Air)) {
+                        System.out.println("On tile " + type.name() + " at " + x + "/" + y + "/" + type.TILE.toString());
+                    }
                 }
             }
         }

@@ -19,6 +19,6 @@ public class TilePathBlockingRock extends Tile {
 
         dialog.startWithDialog("Nick", "Looks like there's one over there behind this rock...", "Seems pretty heavy. Maybe I can  find something to move it with.");
 
-        collidingEntity.getParentMap().setTile(1, 160, 152, TileType.Grass_Top);
+        collidingEntity.getParentMap().setTile(1, 160, 152, TileType.Shovel);
     }
 }

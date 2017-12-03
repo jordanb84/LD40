@@ -16,6 +16,10 @@ public class Tile {
 
     private Sprite sprite;
 
+    private Rectangle rectangle = new Rectangle();
+
+    private Map map;
+
     public Tile(String spritePath) {
         System.out.println(spritePath);
         this.sprite = new Sprite(new Texture(Gdx.files.internal(spritePath)));
@@ -27,7 +31,7 @@ public class Tile {
     }
 
     public void update(int x, int y, OrthographicCamera camera) {
-
+        this.rectangle.set(x, y, Map.TILE_WIDTH, Map.TILE_HEIGHT);
     }
 
     public void collision(Entity collidingEntity, Vector2 position) {
@@ -38,4 +42,15 @@ public class Tile {
         return this.sprite;
     }
 
+    public Rectangle getRectangle() {
+        return this.rectangle;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public Map getMap() {
+        return this.map;
+    }
 }

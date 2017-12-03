@@ -20,6 +20,8 @@ public abstract class EntityLiving extends Entity {
 
     private Animation animation;
 
+    private Rectangle rectangle = new Rectangle();
+
     public EntityLiving(Map parentMap, Vector2 position, int health) {
         super(parentMap, null, position);
         this.setHealth(health);
@@ -43,6 +45,12 @@ public abstract class EntityLiving extends Entity {
     public void update(OrthographicCamera camera) {
         if(this.getHealth() <= 0) {
             this.die();
+        }
+
+        try {
+            this.rectangle.set(this.getPosition().x, this.getPosition().y, this.getAnimation().getWidth(), this.getAnimation().getHeight());
+        }catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -100,8 +108,7 @@ public abstract class EntityLiving extends Entity {
 
         Rectangle newPosition = new Rectangle(this.getPosition().x + force.x, this.getPosition().y + force.y, this.getWidth(), this.getHeight());
 
-
-        TileType tileAt = (this.getParentMap().tileAt(newPosition));
+        TileType tileAt = (this.getParentMap().tileAt(newPosition, true));
 
         System.out.println(tileAt.name());
 
@@ -111,9 +118,15 @@ public abstract class EntityLiving extends Entity {
 
             this.getAnimation().update(camera, this.getDirection());
         }else{
-            this.getParentMap().solidTileAt(newPosition).TILE.collision(this, this.getParentMap().toTilePosition(this.getPosition()));
             force.set(0, 0);
         }
+
+        try {
+            this.getParentMap().solidTileAt(newPosition).TILE.collision(this, this.getParentMap().toTilePosition(this.getPosition()));
+        }catch(NullPointerException e) {
+            e.printStackTrace();
+        }
+
         return force;
     }
 
@@ -127,5 +140,9 @@ public abstract class EntityLiving extends Entity {
 
     public float getHeight() {
         return this.getAnimation().getHeight();
+    }
+
+    public Rectangle getRectangle() {
+        return this.rectangle;
     }
 }

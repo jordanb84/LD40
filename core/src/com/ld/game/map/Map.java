@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ld.game.dialog.Dialog;
 import com.ld.game.entity.Entity;
+import com.ld.game.entity.living.impl.EntityPlayer;
 import com.ld.game.tile.TileType;
 
 import java.util.ArrayList;
@@ -32,11 +33,17 @@ public class Map {
 
     private Dialog dialog;
 
+    private EntityPlayer player;
+
     public Map(List<TileLayer> tileLayers) {
         this.tileLayers = (tileLayers);
         this.dialog = new Dialog();
 
         this.dialog.startWithDialog("Nick", "I've discovered the sacred forest of lava lamps!");
+
+        for(TileType type : TileType.values()) {
+            type.TILE.setMap(this);
+        }
     }
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {
@@ -56,7 +63,7 @@ public class Map {
     public void update(OrthographicCamera camera) {
 
         for(TileLayer tileLayer : this.tileLayers) {
-            tileLayer.update(camera);
+            tileLayer.update(this, camera);
         }
 
         this.entities.addAll(this.entitySpawnQueue);
@@ -82,8 +89,8 @@ public class Map {
 
     public boolean willCollideAt(Rectangle newPosition, OrthographicCamera camera) {
         for(TileLayer tileLayer : this.tileLayers) {
-            if(tileLayer.tileAt(newPosition).SOLID) {
-                System.out.println(tileLayer.tileAt(newPosition).name());
+            if(tileLayer.tileAt(newPosition, false).SOLID) {
+                System.out.println(tileLayer.tileAt(newPosition, false).name());
                 return true;
             }
         }
@@ -95,9 +102,9 @@ public class Map {
         return this.tileLayers.get(0).toTilePosition(position);
     }
 
-    public TileType tileAt(Rectangle position) {
+    public TileType tileAt(Rectangle position, boolean collide) {
         for(TileLayer tileLayer : this.tileLayers) {
-            return tileLayer.tileAt(position);
+            return tileLayer.tileAt(position, collide);
         }
 
         return null;
@@ -109,7 +116,7 @@ public class Map {
 
     public TileType solidTileAt(Rectangle position) {
         for(TileLayer tileLayer : this.tileLayers) {
-            TileType type = tileLayer.tileAt(position);
+            TileType type = tileLayer.tileAt(position, false);
             if(type.SOLID) {
                 return type;
             }
@@ -120,5 +127,13 @@ public class Map {
 
     public Dialog getDialog() {
         return this.dialog;
+    }
+
+    public void setPlayer(EntityPlayer player) {
+        this.player = player;
+    }
+
+    public EntityPlayer getPlayer() {
+        return this.player;
     }
 }

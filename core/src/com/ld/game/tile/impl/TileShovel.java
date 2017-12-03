@@ -14,6 +14,7 @@ public class TileShovel extends Tile {
     @Override
     public void collision(Entity collidingEntity, Vector2 position) {
         super.collision(collidingEntity, position);
+        collidingEntity.getParentMap().getDialog().startWithDialog("test", "hey");
         collidingEntity.getParentMap().setTile(1, (int) position.x, (int) position.y, TileType.Air);
     }
 }
