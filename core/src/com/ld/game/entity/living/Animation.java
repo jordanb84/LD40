@@ -44,11 +44,13 @@ public class Animation {
         this.currentDirection = (direction);
 
         if(this.currentDirection != this.lastDirection) {
-            this.elapsed = 0.4f;
+            this.elapsed = 0.25f;
             this.frame = 0;
         }
 
-        if(this.elapsed >= 0.4f) {
+        //original: 0.4f
+
+        if(this.elapsed >= 0.25f) {
             this.elapsed = 0;
 
             this.frame++;

@@ -24,10 +24,10 @@ public class EntityPlayer extends EntityLiving {
 
     @Override
     public void setupAnimation(Animation animation) {
-        animation.setFramesForDirection(Direction.UP, "entity/player_up.png");
-        animation.setFramesForDirection(Direction.DOWN, "entity/player_down.png");
-        animation.setFramesForDirection(Direction.LEFT, "entity/player_left.png", "entity/player_left1.png");
-        animation.setFramesForDirection(Direction.RIGHT, "entity/player_right.png", "entity/player_right1.png");
+        animation.setFramesForDirection(Direction.UP, "entity/player/player_up1.png", "entity/player/player_up2.png", "entity/player/player_up3.png", "entity/player/player_up4.png");
+        animation.setFramesForDirection(Direction.DOWN, "entity/player/player_down1.png", "entity/player/player_down2.png", "entity/player/player_down3.png", "entity/player/player_down4.png");
+        animation.setFramesForDirection(Direction.LEFT, "entity/player/player_left1.png", "entity/player/player_left2.png", "entity/player/player_left3.png", "entity/player/player_left4.png");
+        animation.setFramesForDirection(Direction.RIGHT, "entity/player/player_right1.png", "entity/player/player_right2.png", "entity/player/player_right3.png", "entity/player/player_right4.png");
     }
 
     @Override
@@ -75,5 +75,10 @@ public class EntityPlayer extends EntityLiving {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    @Override
+    public float getWidth() {
+        return super.getWidth() - 1;
     }
 }

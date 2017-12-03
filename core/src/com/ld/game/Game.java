@@ -44,7 +44,7 @@ public class Game extends ApplicationAdapter {
 
 			//camera.setToOrtho(false, Gdx.graphics.getWidth() * 2, Gdx.graphics.getHeight() * 2);
 		}else {
-			camera.setToOrtho(false, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4);
+			camera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 
 			this.stateManager.setActiveState("level");
 		}

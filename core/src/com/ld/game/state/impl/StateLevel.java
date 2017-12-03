@@ -26,7 +26,7 @@ public class StateLevel extends State {
 
         this.map = new Map(tileLayers);
 
-        EntityPlayer player = new EntityPlayer(this.map, new Vector2(120, 150));
+        EntityPlayer player = new EntityPlayer(this.map, new Vector2(192, 320));
 
         this.map.spawnEntity(player);
         this.map.setPlayer(player);

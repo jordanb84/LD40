@@ -21,7 +21,7 @@ public class TileLayer {
     public void render(Map map, SpriteBatch batch) {
         try {
             int width = 128;
-            int height = 160;
+            int height = 224;
 
             this.rectangle.set(map.getPlayer().getRectangle().x - width/2, map.getPlayer().getRectangle().y - height/2, width, height);
         }catch(NullPointerException e) {
