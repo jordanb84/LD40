@@ -1,11 +1,13 @@
 package com.ld.game.map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.ld.game.tile.TileType;
+import org.w3c.dom.css.Rect;
 
 /**
  * Represents a layer of tiles in a map, including functions to access and manipulate the contained tiles
@@ -14,15 +16,37 @@ public class TileLayer {
 
     private TileType[][] layerTiles;
 
-    public void render(SpriteBatch batch) {
+    private Rectangle rectangle = new Rectangle();
+
+    public void render(Map map, SpriteBatch batch) {
+        try {
+            int width = 128;
+            int height = 160;
+
+            this.rectangle.set(map.getPlayer().getRectangle().x - width/2, map.getPlayer().getRectangle().y - height/2, width, height);
+        }catch(NullPointerException e) {
+            this.rectangle.set(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        }
+
+        Rectangle tileRectangle = new Rectangle();
+
         for(int tileRow = 0; tileRow < this.layerTiles.length; tileRow++) {
             for(int tile = 0; tile < this.layerTiles[tileRow].length; tile++) {
                 int x = (tile * Map.TILE_WIDTH);
                 int y = (tileRow * Map.TILE_HEIGHT);
 
-                this.layerTiles[tile][tileRow].TILE.render(batch, x, y);
+                TileType type = this.layerTiles[tile][tileRow];
+
+                tileRectangle.set(x, y, Map.TILE_WIDTH, Map.TILE_HEIGHT);
+
+                if(!(type == TileType.Air)) {
+                    if(tileRectangle.overlaps(this.rectangle)) {
+                        type.TILE.render(batch, x, y);
+                    }
+                }
             }
         }
+
 
     }
 

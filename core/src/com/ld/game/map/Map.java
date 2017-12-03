@@ -44,11 +44,17 @@ public class Map {
         for(TileType type : TileType.values()) {
             type.TILE.setMap(this);
         }
+
+        for(int tileLayer = 0; tileLayer < this.tileLayers.size(); tileLayer++) {
+            if(tileLayer > 1) {
+                this.tileLayers.remove(tileLayer);
+            }
+        }
     }
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {
         for(TileLayer tileLayer : this.tileLayers) {
-            tileLayer.render(batch);
+            tileLayer.render(this, batch);
         }
 
         for(Entity entity : this.entities) {

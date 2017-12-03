@@ -47,7 +47,7 @@ public class StateMapEditor extends State {
     @Override
     public void render(SpriteBatch batch, OrthographicCamera camera) {
         for(TileLayer tileLayer : this.tileLayers) {
-            tileLayer.render(batch);
+            tileLayer.render(null, batch);
         }
 
         Sprite selectedTileSprite = (this.selectedType.TILE.getSprite());

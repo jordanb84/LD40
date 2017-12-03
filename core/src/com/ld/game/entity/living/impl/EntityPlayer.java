@@ -9,13 +9,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.ld.game.entity.living.Animation;
 import com.ld.game.entity.living.Direction;
 import com.ld.game.entity.living.EntityLiving;
+import com.ld.game.inventory.Inventory;
 import com.ld.game.map.Map;
 
 public class EntityPlayer extends EntityLiving {
 
+    private Inventory inventory;
+
     public EntityPlayer(Map parentMap, Vector2 position) {
         super(parentMap, position, 10);
         this.setSpeed(0.3f);
+        this.inventory = new Inventory(5);
     }
 
     @Override
@@ -67,5 +71,9 @@ public class EntityPlayer extends EntityLiving {
                 pressingMovementKey = true;
             }
         }
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }
